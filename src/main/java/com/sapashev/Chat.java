@@ -64,7 +64,7 @@ public class Chat {
     /**
      * Reads lines from source file and return anyone randomly chosen;
      * @param filename - file which contains lines with answers.
-     * @return - randomly chosen line or "" if the file has no any lines;
+     * @return - randomly chosen line;
      * @throws IOException
      */
     private String getAnswer(String filename) throws IOException{
