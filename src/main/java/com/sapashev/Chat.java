@@ -3,7 +3,10 @@ package com.sapashev;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -65,8 +68,10 @@ public class Chat {
      * @throws IOException
      */
     private String getAnswer(String filename) throws IOException{
+        Random r = new Random();
         try(Stream<String> lines = Files.lines(Paths.get(filename))){
-            return lines.findAny().orElse("");
+            List<String> strings = lines.collect(Collectors.toList());
+            return strings.get(r.nextInt(strings.size()));
         }
     }
 }
