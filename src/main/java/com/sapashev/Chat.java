@@ -8,6 +8,9 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * Describes console chat application
@@ -16,6 +19,8 @@ import java.util.stream.Stream;
  * @version 1.0
  */
 public class Chat {
+    private final Logger LOG = LoggerFactory.getLogger(Chat.class);
+
     public static void main (String[] args) throws IOException {
         new Chat().start(args[0]);
     }
@@ -29,16 +34,20 @@ public class Chat {
 
             while (!isFinished){
                 if (!(userInput = input.ask("Введите фразу")).equalsIgnoreCase("закончить")){
+                    LOG.info("User typed {}", userInput);
                     isPausedAnswer = checkIsPaused(isPausedAnswer, userInput);
                     if(isPausedAnswer){
                         continue;
                     } else {
-                        System.out.println(getAnswer(filename));
+                        String answer = getAnswer(filename);
+                        System.out.println(answer);
+                        LOG.info("The answer is {}", answer);
                     }
                 } else {
                     isFinished = true;
                 }
             }
+            LOG.info("Chat finished");
         }
     }
 
@@ -54,9 +63,11 @@ public class Chat {
     private boolean checkIsPaused (boolean isPausedAnswer, String userInput) {
         if("стоп".equalsIgnoreCase(userInput)){
             isPausedAnswer = true;
+            LOG.info("STOP to answer to user input");
         }
         if ("продолжить".equalsIgnoreCase(userInput)) {
             isPausedAnswer = false;
+            LOG.info("RESUME to answer to user input");
         }
         return isPausedAnswer;
     }
