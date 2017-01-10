@@ -36,9 +36,7 @@ public class Chat {
                 if (!(userInput = input.ask("Введите фразу")).equalsIgnoreCase("закончить")){
                     LOG.info("User typed {}", userInput);
                     isPausedAnswer = checkIsPaused(isPausedAnswer, userInput);
-                    if(isPausedAnswer){
-                        continue;
-                    } else {
+                    if(!isPausedAnswer){
                         String answer = getAnswer(filename);
                         System.out.println(answer);
                         LOG.info("The answer is {}", answer);
